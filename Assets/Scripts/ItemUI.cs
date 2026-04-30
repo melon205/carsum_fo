@@ -1,30 +1,31 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class ItemUI : MonoBehaviour
 {
-    public TextMeshProUGUI nameText;
+    // 프리팹 인스펙터에서 '이미지가 들어갈 자리'만 딱 연결해두세요.
+    public Image iconDisplay;
 
-    private ItemData myData;
-    private ItemDescriptionUI descriptionUI;
+    private ItemData _myData;
+    private ItemDescriptionUI _descriptionUI;
 
-    public void Setup(ItemData data, ItemDescriptionUI uiReference)
+    // 매니저가 생성 시점에 호출하는 함수
+    public void Setup(ItemData data, ItemDescriptionUI ui)
     {
-        myData = data;
-        descriptionUI = uiReference;
+        _myData = data;
+        _descriptionUI = ui;
 
-        if (nameText != null)
-            nameText.text = myData.itemName;
-
-        GetComponent<Button>().onClick.AddListener(OnItemClick);
+        // [이게 유저님이 원하신 로직] 
+        // 매니저가 넘겨준 data(ItemData)에 이미 들어있는 이미지를 UI에 꽂음
+        if (_myData.itemIcon != null && iconDisplay != null)
+        {
+            iconDisplay.sprite = _myData.itemIcon;
+        }
     }
 
-    void OnItemClick()
+    public void OnClickItem() // 버튼의 OnClick에 연결
     {
-        if (myData != null && descriptionUI != null)
-        {
-            descriptionUI.DisplayItemInfo(myData);
-        }
+        if (_myData != null && _descriptionUI != null)
+            _descriptionUI.DisplayItemInfo(_myData);
     }
 }

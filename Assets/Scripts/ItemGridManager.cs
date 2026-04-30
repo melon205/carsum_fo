@@ -1,32 +1,26 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
+using UnityEngine.UI; // Image 컴포넌트 접근용
 
 public class ItemGridManager : MonoBehaviour
 {
-    [Header("Item Data List")]
-    // 자동차 매니저에는 자동차 데이터를, 재료 매니저에는 재료 데이터를 넣습니다.
-    public List<ItemData> itemDataList;
-
-    [Header("UI References")]
-    public GameObject itemPrefab;      // 공용 버튼 프리팹
-    public Transform contentTransform; // 아이템이 생성될 Content 위치
-    public ItemDescriptionUI descriptionUI; // 우측 설명창 연결
+    public List<ItemData> itemDataList; // 스크립터블 오브젝트 리스트
+    public GameObject itemPrefab;      // 빈 이미지 칸이 있는 프리팹
+    public Transform contentTransform;
+    public ItemDescriptionUI descriptionUI;
 
     void Start()
     {
-        GenerateGrid();
-    }
-
-    void GenerateGrid()
-    {
         foreach (ItemData data in itemDataList)
         {
-            GameObject newItemBtn = Instantiate(itemPrefab, contentTransform);
-            ItemUI itemScript = newItemBtn.GetComponent<ItemUI>();
+            // 1. 프리팹 생성
+            GameObject newItem = Instantiate(itemPrefab, contentTransform);
 
+            // 2. [핵심] 매니저가 프리팹 내부의 ItemUI 스크립트를 찾아 데이터를 직접 주입
+            ItemUI itemScript = newItem.GetComponent<ItemUI>();
             if (itemScript != null)
             {
+                // 여기서 매니저가 "자, 이 데이터로 이미지랑 설명 다 세팅해!"라고 명령하는 겁니다.
                 itemScript.Setup(data, descriptionUI);
             }
         }

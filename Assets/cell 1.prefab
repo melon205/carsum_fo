@@ -133,4 +133,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b244a192e15b39f43aa9560ef35a3307, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemUI
-  nameText: {fileID: 0}
+  iconDisplay: {fileID: 4975072125439467994}
