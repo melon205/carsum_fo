@@ -18,8 +18,8 @@ public class MutationNode {
 
     MutationNode RandomVisit()
     {
-        Random rand = new Random();
-        List<int> partition = List<int>();
+        System.Random rand = new System.Random();
+        List<int> partition = new List<int>();
         
         int sum = 0;
         foreach (MutationEdge edge in childs)
@@ -34,12 +34,12 @@ public class MutationNode {
         {
             if (partition[i] >= randIdx)
             {
-                return MutationNode(i-1);
+                return new MutationNode(i-1);
             }
         }
 
         Debug.LogWarning("Random visit failed");
-        return MutationNode(0);
+        return new MutationNode(0);
     }
 
     public MutationNode RandomWalk(int count)

@@ -91,16 +91,16 @@ public class FusionDirector : MonoBehaviour
             return;
         }
 
-        Random rand = new Random();
+        System.Random rand = new System.Random();
         int randIdx = rand.Next(1);
 
         if (randIdx == 0)
         {
-            result = node1.RandomWalk(mutation_count);
+            result = node1.RandomWalk(mutation_count).id;
         } 
         else
         {
-            result = node2.RandomWalk(mutation_count);
+            result = node2.RandomWalk(mutation_count).id;
         }
 
         Debug.Log("Node Selected" + result);
