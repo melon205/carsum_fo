@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
@@ -33,7 +33,12 @@ public class GameDirector : MonoBehaviour
             currentscene=sceneName;
             SceneManager.LoadScene(sceneName);
             if (currentscene=="merge"){
-                //
+                //setui(items, MaterialDataList, CarDataList);
+                ItemGridManager[] managers = FindObjectsByType<ItemGridManager>(FindObjectsSortMode.None);
+                foreach (ItemGridManager mgr in managers)
+                {
+                    mgr.setui(items, MaterialDataList, CarDataList);
+                }
             }
             else if (currentscene=="Car_center"){
                 //
@@ -45,6 +50,87 @@ public class GameDirector : MonoBehaviour
         else
         {
             Debug.LogWarning("이동할 씬 이름이 입력되지 않았습니다.");
+        }
+    }
+    public void DeleteCarData(CarData data){
+        CarDataList.Remove(data);
+        //setui(items, MaterialDataList, CarDataList);
+        ItemGridManager[] managers = FindObjectsByType<ItemGridManager>(FindObjectsSortMode.None);
+        foreach (ItemGridManager mgr in managers)
+        {
+            mgr.setui(items, MaterialDataList, CarDataList);
+        }
+    }
+}*/
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+
+public class GameDirector : MonoBehaviour
+{
+    private string currentscene;
+    public Dictionary<string,int> items;
+    public List<MaterialData> MaterialDataList;
+    public List<CarData> CarDataList;
+
+    void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+
+        // ✅ 씬 로드 완료 이벤트 등록
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void Start()
+    {
+        items = new Dictionary<string,int>();
+        foreach (MaterialData key in MaterialDataList)
+        {
+            items[key.itemName] = 0;
+        }
+    }
+
+    public void LoadScene(string sceneName)
+    {
+        if (!string.IsNullOrEmpty(sceneName))
+        {
+            currentscene = sceneName;
+            SceneManager.LoadScene(sceneName);
+        }
+        else
+        {
+            Debug.LogWarning("이동할 씬 이름이 입력되지 않았습니다.");
+        }
+    }
+
+    // ✅ 씬 로드 끝난 "후" 실행됨
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "merge")
+        {
+            ItemGridManager[] managers = FindObjectsByType<ItemGridManager>(FindObjectsSortMode.None);
+
+            foreach (ItemGridManager mgr in managers)
+            {
+                mgr.setgd(this.gameObject);
+                mgr.setui(items, MaterialDataList, CarDataList);
+            }
+        }
+    }
+
+    public void DeleteCarData(CarData data)
+    {
+        CarDataList.Remove(data);
+
+        ItemGridManager[] managers = FindObjectsByType<ItemGridManager>(FindObjectsSortMode.None);
+        foreach (ItemGridManager mgr in managers)
+        {
+            mgr.setui(items, MaterialDataList, CarDataList);
         }
     }
 }

@@ -8,9 +8,13 @@ public class ItemGridManager : MonoBehaviour
     public GameObject itemPrefab;      // 빈 이미지 칸이 있는 프리팹
     public Transform contentTransform;
     public ItemDescriptionUI descriptionUI;
+    public GameObject gd;
+    public GameObject buttonUI;
     public string order;
-
-    void setui(Dictionary<string,int> items, List<MaterialData> MaterialDataList, List<CarData> CarDataList)
+    public void setgd(GameObject gamed){
+        gd=gamed;
+    }
+    public void setui(Dictionary<string,int> items, List<MaterialData> MaterialDataList, List<CarData> CarDataList)
     {
         if (order=="Material")
         {
@@ -40,6 +44,13 @@ public class ItemGridManager : MonoBehaviour
                 {
                     // 여기서 매니저가 "자, 이 데이터로 이미지랑 설명 다 세팅해!"라고 명령하는 겁니다.
                     itemScript.Setup(data, descriptionUI);
+                }
+                MergeImage itemScript2 = newItem.GetComponent<MergeImage>();
+                if (itemScript2 != null && buttonUI!=null)
+                {
+                    Debug.Log("c");
+                    // 여기서 매니저가 "자, 이 데이터로 이미지랑 설명 다 세팅해!"라고 명령하는 겁니다.
+                    itemScript2.Setup(data, buttonUI, gd);
                 }
             }
         }
