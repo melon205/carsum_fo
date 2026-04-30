@@ -8,8 +8,8 @@ public class FusionDirector : MonoBehaviour
     public MutationNode mutationGraph = new MutationNode(0);
     List<MutationNode> nodes = new List<MutationNode>();
 
-    public int car1 = 0;
-    public int car2 = 2;
+    public int car1 = -1;
+    public int car2 = -1;
     public int result = -1;
 
     void Awake()
@@ -66,9 +66,6 @@ public class FusionDirector : MonoBehaviour
         nodes[0].Add(nodes[2], 1, 1);
         nodes[0].Add(nodes[3], 1, 1);
 
-        Debug.Log(nodes[0].id);
-        Debug.Log(nodes[2].id);
-
         Fusion();
     }
 
@@ -83,11 +80,7 @@ public class FusionDirector : MonoBehaviour
             return;
         }
 
-        Debug.Log("Starting Fusion");
-
         int mutation_count = CalculateLength(car1, car2);
-
-        Debug.Log("Mutation Count: " + mutation_count);
 
         if (mutation_count == -1)
         {
@@ -98,11 +91,19 @@ public class FusionDirector : MonoBehaviour
         int randIdx = rand.Next(0, 2);
 
         MutationNode node = nodes[randIdx == 0 ? car1 : car2];
+        
+        for (int i = 1; i < 10; i++)
+        {
+            int a = node.RandomVisit();
+            node = nodes[a];
+        }
+        
         for (int i = 1; i < mutation_count; i++)
-            {
-                node = nodes[node.RandomVisit()];
-            }
-            result = node.id;
+        {
+            node = nodes[node.RandomVisit()];
+        }
+        
+        result = node.id;
 
         Debug.Log("Node Selected: " + result);
     }

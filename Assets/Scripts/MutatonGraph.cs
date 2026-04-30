@@ -25,16 +25,16 @@ public class MutationNode {
         foreach (MutationEdge edge in childs)
         {
             sum += edge.weight;
-            partition.Add(sum);
+            partition.Add(sum * 100);
         }
 
-        int randIdx = rand.Next(sum);
+        int randIdx = rand.Next(sum * 100);
 
         for (int i = 0; i < partition.Count; i++)
         {
             if (partition[i] >= randIdx)
             {
-                return i - 1;
+                return childs[i].to.id;
             }
         }
 
