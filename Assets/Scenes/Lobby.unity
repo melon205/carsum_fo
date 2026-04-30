@@ -533,6 +533,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1103367471}
   - component: {fileID: 1103367470}
+  - component: {fileID: 1103367472}
   m_Layer: 0
   m_Name: GameDirector
   m_TagString: Untagged
@@ -552,6 +553,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72c21e95ea1dbf049afd58649d561cd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameDirector
+  MaterialDataList:
+  - {fileID: 11400000, guid: 13fd26a89070e466d99068e2326da6c5, type: 2}
+  CarDataList: []
 --- !u!4 &1103367471
 Transform:
   m_ObjectHideFlags: 0
@@ -567,6 +571,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1103367472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103367469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec891cb20388545479df3be1f12cc07b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FusionDirector
+  car1: {fileID: 11400000, guid: 43192f7887d2e49c9be61f9819d9a912, type: 2}
+  car2: {fileID: 11400000, guid: 43192f7887d2e49c9be61f9819d9a912, type: 2}
+  result: {fileID: 11400000, guid: 43192f7887d2e49c9be61f9819d9a912, type: 2}
 --- !u!1 &1381036893
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: NewMaterialData
+  m_Name: DefaultMaterialData
   m_EditorClassIdentifier: Assembly-CSharp::MaterialData
   itemName: DefaultMaterialData
   description: None
