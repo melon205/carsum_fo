@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewItemData", menuName = "ScriptableObjects/ItemData")]
-public class MaterialData : ScriptableObject
+public class ItemData : ScriptableObject
 {
     public string itemName;
     [TextArea]
@@ -11,10 +11,9 @@ public class MaterialData : ScriptableObject
     // public enum ItemType { Car, Material }
     // public ItemType type;
 }
-public class CarData : ScriptableObject
+public class MaterialData : ItemData
 {
-    public string itemName;
-    [TextArea]
-    public string description;
-    public Sprite itemIcon;
+}
+public class CarData : ItemData
+{
 }

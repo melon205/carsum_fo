@@ -11,6 +11,7 @@ public class GameDirector : MonoBehaviour
     private string currentscene;
     public Dictionary<string,int> items;
     public List<MaterialData> MaterialDataList;
+    public List<CarData> CarDataList;
     /// <summary>
     /// UI 버튼의 OnClick() 이벤트에 연결하여 씬을 이동시키는 함수입니다.
     /// Inspector 창에서 이동할 씬의 이름을 문자열로 직접 입력할 수 있습니다.

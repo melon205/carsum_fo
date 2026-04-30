@@ -6,11 +6,11 @@ public class ItemUI : MonoBehaviour
     // 프리팹 인스펙터에서 '이미지가 들어갈 자리'만 딱 연결해두세요.
     public Image iconDisplay;
 
-    private MaterialData _myData;
+    private ItemData _myData;
     private ItemDescriptionUI _descriptionUI;
 
     // 매니저가 생성 시점에 호출하는 함수
-    public void Setup(MaterialData data, ItemDescriptionUI ui)
+    public void Setup(ItemData data, ItemDescriptionUI ui)
     {
         _myData = data;
         _descriptionUI = ui;
@@ -22,7 +22,6 @@ public class ItemUI : MonoBehaviour
             iconDisplay.sprite = _myData.itemIcon;
         }
     }
-
     public void OnClickItem() // 버튼의 OnClick에 연결
     {
         if (_myData != null && _descriptionUI != null)

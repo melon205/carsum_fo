@@ -30,15 +30,17 @@ public class ItemGridManager : MonoBehaviour
             }
         }
         else if (order=="Car"){
-            // 1. 프리팹 생성
-            GameObject newItem = Instantiate(itemPrefab, contentTransform);
+            foreach (CarData data in CarDataList){
+                // 1. 프리팹 생성
+                GameObject newItem = Instantiate(itemPrefab, contentTransform);
 
-            // 2. [핵심] 매니저가 프리팹 내부의 ItemUI 스크립트를 찾아 데이터를 직접 주입
-            ItemUI itemScript = newItem.GetComponent<ItemUI>();
-            if (itemScript != null && descriptionUI!=null)
-            {
-                // 여기서 매니저가 "자, 이 데이터로 이미지랑 설명 다 세팅해!"라고 명령하는 겁니다.
-                itemScript.Setup(data, descriptionUI);
+                // 2. [핵심] 매니저가 프리팹 내부의 ItemUI 스크립트를 찾아 데이터를 직접 주입
+                ItemUI itemScript = newItem.GetComponent<ItemUI>();
+                if (itemScript != null && descriptionUI!=null)
+                {
+                    // 여기서 매니저가 "자, 이 데이터로 이미지랑 설명 다 세팅해!"라고 명령하는 겁니다.
+                    itemScript.Setup(data, descriptionUI);
+                }
             }
         }
     }

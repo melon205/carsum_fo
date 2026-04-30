@@ -12,7 +12,7 @@ public class ItemDescriptionUI : MonoBehaviour
         gameObject.SetActive(false); 
     }
 
-    public void DisplayItemInfo(MaterialData data)
+    public void DisplayItemInfo(ItemData data)
     {
         gameObject.SetActive(true);
         nameText.text = data.itemName;
