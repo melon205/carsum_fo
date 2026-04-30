@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections.Generic;
+using System;
 
 [CreateAssetMenu(fileName = "NewItemData", menuName = "ScriptableObjects/ItemData")]
 public class ItemData : ScriptableObject
@@ -11,10 +13,15 @@ public class ItemData : ScriptableObject
     // public enum ItemType { Car, Material }
     // public ItemType type;
 }
+[CreateAssetMenu(fileName = "NewMaterialData", menuName = "ScriptableObjects/MaterialData")]
 public class MaterialData : ItemData
 {
+    public int id;
 }
+[CreateAssetMenu(fileName = "NewCarData", menuName = "ScriptableObjects/CarData")]
 public class CarData : ItemData
 {
     public int id;
+    public int mutagen;
+    public List<Modifier> modifiers = new List<Modifier>();
 }

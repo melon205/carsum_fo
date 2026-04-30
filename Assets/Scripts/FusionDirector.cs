@@ -8,9 +8,9 @@ public class FusionDirector : MonoBehaviour
     public MutationNode mutationGraph = new MutationNode(0);
     List<MutationNode> nodes = new List<MutationNode>();
 
-    public int car1 = -1;
-    public int car2 = -1;
-    public int result = -1;
+    public CarData car1;
+    public CarData car2;
+    public CarData result;
 
     void Awake()
     {
@@ -26,7 +26,7 @@ public class FusionDirector : MonoBehaviour
 
     int CalculateLength(int start, int end)
     {
-        List<int> visited = new List<int>();
+        HashSet<int> visited = new HashSet<int>();
         Queue<(MutationNode, int)> queue = new Queue<(MutationNode, int)>();
 
         visited.Add(start);
@@ -66,31 +66,39 @@ public class FusionDirector : MonoBehaviour
         nodes[0].Add(nodes[2], 1, 1);
         nodes[0].Add(nodes[3], 1, 1);
 
+        
+
         Fusion();
     }
 
     public bool CanFusion()
     {
-        return car1 != -1 && car2 != -1;
+        return car1.id != -1 && car2.id != -1;
     }
 
     public void Fusion()
     {
+        //Type Selection
         if (!CanFusion()) {
             return;
         }
 
-        int mutation_count = CalculateLength(car1, car2);
+        int carId1 = car1.id;
+        int carId2 = car2.id;
 
-        if (mutation_count == -1)
+        int mutationCount = CalculateLength(carId1, carId2);
+
+        if (mutationCount == -1)
         {
             return;
         }
 
+        mutationCount += (car1.mutagen + car2.mutagen) / 10;
+
         System.Random rand = new System.Random();
         int randIdx = rand.Next(0, 2);
 
-        MutationNode node = nodes[randIdx == 0 ? car1 : car2];
+        MutationNode node = nodes[randIdx == 0 ? carId1 : carId2];
         
         for (int i = 1; i < 10; i++)
         {
@@ -98,19 +106,16 @@ public class FusionDirector : MonoBehaviour
             node = nodes[a];
         }
         
-        for (int i = 1; i < mutation_count; i++)
+        for (int i = 1; i < mutationCount; i++)
         {
             node = nodes[node.RandomVisit()];
         }
         
-        result = node.id;
+        int resultId = node.id;
 
-        Debug.Log("Node Selected: " + result);
-    }
+        Debug.Log("Node Selected: " + resultId);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        //Modifier
+
     }
 }
