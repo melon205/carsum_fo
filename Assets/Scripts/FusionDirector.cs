@@ -6,6 +6,7 @@ public class FusionDirector : MonoBehaviour
 {
     public static FusionDirector Instance;
     public MutationNode mutationGraph = new MutationNode(0);
+    List<MutationNode> nodes = new List<MutationNode>();
 
     public int car1 = 0;
     public int car2 = 2;
@@ -23,19 +24,18 @@ public class FusionDirector : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    int CalculateLength(MutationNode start, MutationNode end)
+    int CalculateLength(int start, int end)
     {
         List<int> visited = new List<int>();
         Queue<(MutationNode, int)> queue = new Queue<(MutationNode, int)>();
 
-        visited.Add(start.id);
-        queue.Enqueue((start,0));
+        visited.Add(start);
+        queue.Enqueue((nodes[start], 0));
 
         while (queue.Count != 0)
         {
             var (current, dist) = queue.Dequeue();
-
-            if (current.id == end.id)
+            if (current.id == end)
             {
                 return dist;
             }
@@ -56,18 +56,20 @@ public class FusionDirector : MonoBehaviour
     void Start()
     {
         int nodeCount = 4;
-        List<MutationNode> nodes = new List<MutationNode>();
         nodes.Add(mutationGraph);
         for (int i = 1; i < nodeCount; i++)
         {
             nodes.Add(new MutationNode(i));
         }
 
-        mutationGraph.Add(nodes[0], 1, 1);
-
         nodes[0].Add(nodes[1], 1, 1);
         nodes[0].Add(nodes[2], 1, 1);
         nodes[0].Add(nodes[3], 1, 1);
+
+        Debug.Log(nodes[0].id);
+        Debug.Log(nodes[2].id);
+
+        Fusion();
     }
 
     bool CanFusion()
@@ -81,10 +83,11 @@ public class FusionDirector : MonoBehaviour
             return;
         }
 
-        MutationNode node1 = new MutationNode(car1);
-        MutationNode node2 = new MutationNode(car2);
+        Debug.Log("Starting Fusion");
 
-        int mutation_count = CalculateLength(node1, node2);
+        int mutation_count = CalculateLength(car1, car2);
+
+        Debug.Log("Mutation Count: " + mutation_count);
 
         if (mutation_count == -1)
         {
@@ -92,18 +95,16 @@ public class FusionDirector : MonoBehaviour
         }
 
         System.Random rand = new System.Random();
-        int randIdx = rand.Next(1);
+        int randIdx = rand.Next(0, 2);
 
-        if (randIdx == 0)
-        {
-            result = node1.RandomWalk(mutation_count).id;
-        } 
-        else
-        {
-            result = node2.RandomWalk(mutation_count).id;
-        }
+        MutationNode node = nodes[randIdx == 0 ? car1 : car2];
+        for (int i = 1; i < mutation_count; i++)
+            {
+                node = nodes[node.RandomVisit()];
+            }
+            result = node.id;
 
-        Debug.Log("Node Selected" + result);
+        Debug.Log("Node Selected: " + result);
     }
 
     // Update is called once per frame
