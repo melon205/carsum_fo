@@ -24,7 +24,7 @@ public class MergeImageUI : MonoBehaviour
             buttonImage1.sprite=data.itemIcon;
             _Image1=true;
             Data1=data;
-            //car1=data;
+            FusionDirector.Instance.car1 = data;
             return true;
         }
         else if (_Image2==false){
@@ -32,7 +32,7 @@ public class MergeImageUI : MonoBehaviour
             buttonImage2.sprite=data.itemIcon;
             _Image2=true;
             Data2=data;
-            //car2=data;
+            FusionDirector.Instance.car2 = data;
             return true;
         }
         else{
