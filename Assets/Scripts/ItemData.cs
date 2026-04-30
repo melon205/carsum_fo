@@ -16,4 +16,5 @@ public class MaterialData : ItemData
 }
 public class CarData : ItemData
 {
+    public int id;
 }

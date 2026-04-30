@@ -69,12 +69,12 @@ public class FusionDirector : MonoBehaviour
         Fusion();
     }
 
-    bool CanFusion()
+    public bool CanFusion()
     {
         return car1 != -1 && car2 != -1;
     }
 
-    void Fusion()
+    public void Fusion()
     {
         if (!CanFusion()) {
             return;
