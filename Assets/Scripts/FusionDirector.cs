@@ -8,9 +8,9 @@ public class FusionDirector : MonoBehaviour
     public MutationNode mutationGraph = new MutationNode(0);
     List<MutationNode> nodes = new List<MutationNode>();
 
-    public CarData car1;
-    public CarData car2;
-    public CarData result;
+    public CarData car1 = new CarData();
+    public CarData car2 = new CarData();
+    public CarData result = new CarData();
 
     void Awake()
     {
@@ -66,7 +66,8 @@ public class FusionDirector : MonoBehaviour
         nodes[0].Add(nodes[2], 1, 1);
         nodes[0].Add(nodes[3], 1, 1);
 
-        
+        car1.modifiers.Add(Modifier.OS);
+        car2.modifiers.Add(Modifier.Overheat);
 
         Fusion();
     }
@@ -100,12 +101,6 @@ public class FusionDirector : MonoBehaviour
 
         MutationNode node = nodes[randIdx == 0 ? carId1 : carId2];
         
-        for (int i = 1; i < 10; i++)
-        {
-            int a = node.RandomVisit();
-            node = nodes[a];
-        }
-        
         for (int i = 1; i < mutationCount; i++)
         {
             node = nodes[node.RandomVisit()];
@@ -116,6 +111,18 @@ public class FusionDirector : MonoBehaviour
         Debug.Log("Node Selected: " + resultId);
 
         //Modifier
+        List<Modifier> modifierList = new List<Modifier>();
+        modifierList.AddRange(car1.modifiers);
+        modifierList.AddRange(car2.modifiers);
 
+        List<Modifier> resultModifierList = new List<Modifier>();
+
+        for (int i = 1; i < modifierList.Count / 2; i++)
+        {
+            resultModifierList.Add(modifierList[rand.Next(modifierList.Count)]);
+        }
+
+        result = new CarData(resultId, 0);
+        result.modifiers = resultModifierList;
     }
 }
